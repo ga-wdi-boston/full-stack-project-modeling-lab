@@ -1,106 +1,138 @@
 [![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
 
-# Talk Template
+# Full Stack Project Modeling Lab
 
-Use this template to structure your READMEs for talks. Remove text from this
-section, or use it to frame the talk you are giving. Good framing answers the
-question "Why am I learning this?".
+During this lab we are going to talk project ideas, how to take a 'shoot for
+the stars' idea, and build it in a methodical fashion that will keep you on
+track, while fixing *one* problem at a time.
 
-Be sure to include a recent [`LICENSE`](LICENSE) and Markdown linter
-configuration ([`.remarkrc`](.remarkrc)). Also, include an appropriate
-`.gitignore`; these are usually found in specific technology templates, for
-example [js-template](https://www.github.com/ga-wdi-boston/js-template).
+When you're starting out as a developer, it's often a struggle to take a
+grandiose idea and consolidate it into more managable pieces.
 
 ## Prerequisites
 
--   Topics with which developers should be familiar with.
--   Prerequisites are "just-in-time", so if I have a prerequisite that mentions
-    Sass, I would **not** need to include CSS as a prerequisite.
--   [Links to previous materials](https://www.github.com/ga-wdi-boston/example)
-    are often useful.
+-   [full-stack-project-practice](https://github.com/ga-wdi-boston/full-stack-project-practice)
 
 ## Objectives
 
 By the end of this, developers should be able to:
 
--   Write objectives that focus on demonstrating knowledge.
--   Write learning objectives that begin with an [imperative
-    verb](https://en.wikipedia.org/wiki/Imperative_mood).
--   Avoid objectives that start with "Use" or "Understand".
--   Rewrite objecives that begin with "Use" by inverting sentence structure.
--   End each objective with a period.
--   Write objectives on the whiteboard so they can be referenced during a talk.
+-   Properly scope projects.
+-   Break apart an ERD into a 'to-do' list.
+-   Plan feature progress effectively.
+-   Prioritize objectives/tasks and descope accordingly.
 
 ## Preparation
 
 1.  Fork and clone this repository.
  [FAQ](https://github.com/ga-wdi-boston/meta/wiki/ForkAndClone)
-1.  Create a new branch, `training`, for your work.
-1.  Checkout to the `training` branch.
-1.  Install dependencies with `npm install`.
 
-Better preparation instructions may be found as
-[snippets](https://github.com/ga-wdi-boston/instructors/tree/master/snippets).
+## What is `scope`? Why is it important?
 
-It's a good idea to have students do these steps while you're writing objectives
-on the whiteboard.
+Scope is typically a list of features or goals you have in mind for your
+project for example, if I wanted to have users be able to sign up, log in,
+change password, etc. those are all features I would like my application to have. They are *within* the scope of my project.
 
-## Leading Topic Heading
+## Demo: Write an ERD and prioritize it
 
-Here is where the talk begins. If you have not already included framing above,
-it's appropriate to put it here. Link to introductory articles or documentation.
-Motivate the next section.
+Let's take our 'library-api' as an example. In this domain, our main resource
+is *books*. Books should belong to authors though, so we can look up all the
+books that belong to an author, right!? What happens if an author has multiple
+books, but some books have multiple authors!? We also probably need to have
+*users* so that they can take out books, and users need to have passwords, and
+need to be able to change their passwords, and what if we have multiple books,
+can multiple users take out different versions of the same boo--[ohh no I've gone crosseyed](http://i.imgur.com/a7Yyjg8.gif).
 
-Demos, exercises, and labs are labelled as such, followed by a colon and a
-description of the activity starting with an [imperative
-verb](https://en.wikipedia.org/wiki/Imperative_mood).
+Let's back it up, and take it one step at a time. Books. Books is our *main*
+resource. So let's start there. The scope of my project would likely just start
+with books. I would make sure I could CRUD on books, then I would add an
+additional resource. How about authors?
 
-## Demo: Write a Demo
+It's OK for you ERD to change!
 
-Demos are demonstrations, and developers should give their full attention to
-them. It's a great time for them to take notes about important concepts before
-applying them in an exercise.
+If I were building this out, I would start with just Book. ![Book](http://i.imgur.com/N1npKUD.png)
 
-Demos correspond to the "I do" portion of scaffolding from consultant training.
+Once I had CRUD working on book (using curl and perhaps a dummy client), I
+would move on to add authors.
 
-## Code-Along: Write an Code-Along
+To add authors I would make sure that books belonged to authors and that there
+were no two authors the same, and add author's birthdays, and home town, and
+favorite food, and--STOP! Add authors. That's IT.
 
-During the code-along, developers should apply concepts covered in the previous
-demo, led by the consultant.
-This is their first chance to generalize concepts introduced. Exercises should
-be very focused, and flow natural into a lab.
+![Author](http://i.imgur.com/lTnGitd.png)
 
-Exercises correspond to the "We do" portion of scaffolding from consultant
-training.
+That wasn't so hard, no was it? Test CRUD on authors! Now what do we need to
+do? Well, we need to form some sort of relationship between authors and books.
+Right, and we know that authors can have many books... but wait--can't books
+have many authors!? Yep! But we aren't going to worry about that right now!
+See how liberating this can be?! Let's get it working, THEN we'll change it.
 
-## Lab: Write a Lab
+![Relationship](http://i.imgur.com/vfWHyT6.png)
 
-During labs, developers get to demonstrate their understanding of concepts from
-demos and applied knowledge from exercises. Labs are an opportunity for
-developers to build confidence, and also serve as a diagnostic tool for
-consultants to evaluate developer understanding.
+Test the relationship. Make sure you can get all books that belong to an
+author, and that you can find an author that owns a book!
 
-Labs should be timed explicitly using a timer. When estimating the time it will
-take to complete a lab, it is better to overestimate. During labs, consultants
-should circle the room and interact with developers, noting patterns and
-prompting with hints on how to complete the lab. If developers end early, a
-consultant may stop the lab timer. If developers do not finish in time, a
-consultant may give more time at her discretion based on current talk pace, the
-current estimate for the talk, and the importance of completing the lab while
-consultant support is available.
+What's next? While we wanted to add a many-to-many relationship between authors
+and books, it's not as important as allowing users to interact with books. So,
+let's add our *User* model.
 
-Labs correspond to the "You do" portion of scaffolding from consultant
-training.
+![User](http://i.imgur.com/sYjRXbz.png)
 
-## Additional Resources
+Boom. Now we have users. Let's test CRUD and pause for a second for some
+`testing best practices`!
 
--   Any useful links should be included in the talk material where the link is
-    first referenced.
--   Additional links for further study or exploration are appropriate in this
-    section.
--   Links to important parts of documentation not covered during the talk, or
-    tools tangentially used but not part of the focus of the talk, are also
-    appropriate.
+## CURL Scripts: But whyyyy?
+
+CURL is your friend. It allows us as developers to *completely eliminate* the
+front end or client from the equation. After you've built out a feature with
+your API your FIRST inclination should be to test it with CURL. Because of this
+we've put a `/scripts` directory in each of the templates we provide. Do
+Future You a favor and start writing them out, save, and commit ones that you
+know work. That way when you come back later and want to add a feature, it's
+easy to test your previous work!
+
+## Demo Continued...
+
+Where were we? Because we have our overall ERD mapped out already, we have a
+roadmap for where our final destination is. At this point, we want some sort of
+association between a User and a Book.
+
+It's time to choose your own adventure... Should you a) add a join table
+because you know you're going to want books and users to have a `many-to-many`
+relationship further down the road? OR b) build out your API methodically,
+making sure everything is working before jumping in the deep end? If you picked
+a) you're likely setting yourself up for headache.
+
+a) ![a](http://i.imgur.com/4CPYxty.png)
+
+b) ![b](http://i.imgur.com/XshAB3u.png)
+
+Start with b. Once it's working properly, add the `Loan` resource, and create
+the join table.
+
+Remember: It's OK to change your ERD. It's ok to modify your database. There
+are things to remember when you do, but don't feel like you need to get your
+database and relationships all set up perfectly on Day 1. Things change, and
+that's ok. The only way to be methodical when you build out these features is
+to be ok with that inevitable change.
+
+## Lab: Consider the previous example
+
+Think about the example we just ran through. What are the *must* haves? What
+are the nice to haves? Are there any resources we could do without? What would
+we sacrifice if we aren't developing features as fast as we'd hoped? What if
+all of a sudden, I wanted to add a Profile? How would our ERD change? What if
+I wanted there to be two types of users, admins, and non-admins? What
+priviliges would I allow? How would I control user AND admin ownership?
+
+## Lab: Pitch Time!
+
+You all should've completed the [full-stack-project-practice](https://github.com/ga-wdi-boston/full-stack-project-practice) at this point. We'll go around the room, and have people present,
+or share their ideas and we'll descope and prioritize them together. Once we're
+done, think about how YOUR project might be descoped, and what the priorities
+are. Set yourself up for success! If you're unclear by the end of all of this,
+schedule a 1-1 with a consultant to review your ERD, wireframes, and plan of
+attack!
 
 ## [License](LICENSE)
 
